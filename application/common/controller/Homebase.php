@@ -16,4 +16,10 @@ namespace app\common\controller;
 
 class Homebase extends Base
 {
+	public $site_info = [];
+	protected function initialize (){
+
+		parent::initialize();
+		
+	}
 }
