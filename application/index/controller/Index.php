@@ -3,7 +3,7 @@ namespace app\index\controller;
 
 use app\common\controller\Homebase;
 use app\index\model\Article;
-
+use think\facade\Env;
 
 
 class Index extends Homebase
@@ -11,28 +11,29 @@ class Index extends Homebase
     public function index()
     {
       
-        $row = [];
-		$row['article'] = Article::withJoin('articleAata', 'LEFT')->select()->toArray();
+        $jia = [];
 
-    	$this->assign('row', $row);	
+		$jia['article'] = Article::withJoin('articleAata', 'LEFT')->select()->toArray();
+
+    	$this->assign('jia', $jia);	
     
       	return $this->fetch();
     }
 
     public function detail (){
     	if(!$this->request->has('id')){
-    		var_dump('none');
+            return $this->fetch(Env::get('app_path') . 'index/view/404.html');
     	}
 
     	$id = $this->request->param('id/d');
-    	$row = [];
+    	$jia = [];
 
-    	$row['detail'] = Article::hasWhere('articleAata')->where('id', $id)->select();
+    	$detail = Article::hasWhere('articleAata')->find();
+        $jia['detail'] = $detail;
+    	
 
-    	var_dump($row['detail']->articleAata->content);
-
-    	$this->assign('row', $row);
-    	$this->fetch();
+    	$this->assign('jia', $jia);
+        return $this->fetch();
     }
 
 }

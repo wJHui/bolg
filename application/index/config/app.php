@@ -14,8 +14,7 @@
 // +----------------------------------------------------------------------
 
 return [
-    'http_exception_template' => [
-        404 => Env::get('app_path') . 'index/view/error/404.html'
-    ]
+    'dispatch_error_tmpl' => Env::get('app_path') . 'index/view/404.html',
+    'app_debug' => false
 
 ];

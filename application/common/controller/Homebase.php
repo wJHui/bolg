@@ -15,6 +15,7 @@
 namespace app\common\controller;
 
 use app\index\model\Config;
+use app\index\model\Category;
 
 class Homebase extends Base
 {
@@ -22,7 +23,8 @@ class Homebase extends Base
 	protected function initialize (){
 		parent::initialize();
 
-		$this->site_global['config'] = Config::getConfig()->toArray();
+		$this->site_global['config'] = Config::getConfig();
+		$this->site_global['category'] = Category::getCategory()->toArray();
 
 		$this->assign('site_global', $this->site_global);
 	}
