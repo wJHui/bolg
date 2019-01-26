@@ -14,12 +14,16 @@
 // +----------------------------------------------------------------------
 namespace app\common\controller;
 
+use app\index\model\Config;
+
 class Homebase extends Base
 {
-	public $site_info = [];
+	public $site_global = [];
 	protected function initialize (){
-
 		parent::initialize();
-		
+
+		$this->site_global['config'] = Config::getConfig()->toArray();
+
+		$this->assign('site_global', $this->site_global);
 	}
 }
