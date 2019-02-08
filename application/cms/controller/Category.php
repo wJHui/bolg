@@ -194,6 +194,7 @@ class Category extends Adminbase
                 $this->error('请选择需要修改的栏目！');
             }
             $data = getCategory($id);
+            
             $setting = $data['setting'];
 
             //输出可用模型

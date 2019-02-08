@@ -139,6 +139,7 @@ class Cms extends Adminbase
     {
         if ($this->request->isPost()) {
             $data = $this->request->post();
+           
             $data['modelFieldExt'] = isset($data['modelFieldExt']) ? $data['modelFieldExt'] : [];
             try {
                 $this->modelfield->editModelData($data['modelField'], $data['modelFieldExt']);

@@ -54,6 +54,7 @@ class Field extends Adminbase
             $result = array("code" => 0, "data" => $data);
             return json($result);
         }
+        //var_dump($data);
         $this->assign("modelid", $modelid);
         return $this->fetch();
     }

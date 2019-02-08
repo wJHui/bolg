@@ -5,12 +5,12 @@
     <input type='hidden' name='modelField[posid][]' value='-1'>
     {if isset($position) && !empty($position)}
     <div class="layui-form-item">
-    <label class="">推荐位</label>
-    <div class="layui-form-field-label">
-        {volist name="position" id="v"}
-        <input type="checkbox" name="modelField[posid][]" lay-skin="primary" title="{$v}" value="{$key}">
-        {/volist}
-    </div>
+        <label class="">推荐位</label>
+        <div class="layui-form-field-label">
+            {volist name="position" id="v"}
+            <input type="checkbox" name="modelField[posid][]" lay-skin="primary" title="{$v}" value="{$key}">
+            {/volist}
+        </div>
     </div>
     {/if}
     {if count($fieldList)}
@@ -24,30 +24,30 @@
 {/block}
 {block name="script"}
 <script type="text/javascript">
-layui.use(['form','layer'], function() {
-    $('.ajax-post').on('click', function(e) {
-        var form = layui.form,
-         layer = layui.layer,
-         target;
-        var target_form = $(this).attr('target-form');
-        target = $('.form-horizontal').attr("action");
-        $.post(target, $('.form-horizontal').serialize()).success(function(data) {
-            if (data.code == 1) {
-                layer.confirm(data.msg, {
+    layui.use(['form','layer'], function() {
+        $('.ajax-post').on('click', function(e) {
+            var form = layui.form,
+            layer = layui.layer,
+            target;
+            var target_form = $(this).attr('target-form');
+            target = $('.form-horizontal').attr("action");
+            $.post(target, $('.form-horizontal').serialize()).success(function(data) {
+                if (data.code == 1) {
+                    layer.confirm(data.msg, {
                     btn: ['继续添加', '返回列表'] //按钮
                 }, function() {
                     window.open('{:url("cms/cms/add",["catid"=>$catid])}', '_self')
                 }, function() {
                     window.open('{:url("cms/cms/classlist",["catid"=>$catid])}', '_self')
                 });
-            } else {
-                layer.msg(data.msg);
-            }
+                } else {
+                    layer.msg(data.msg);
+                }
+
+            });
+            return false;
 
         });
-        return false;
-
-    });
-})
+    })
 </script>
 {/block}

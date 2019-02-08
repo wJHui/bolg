@@ -68,7 +68,7 @@ EOF;
         $data['ifsearch'] = isset($data['ifsearch']) ? ($fieldInfo['ifstring'] && $data['ifsystem'] ? intval($data['ifsearch']) : 0) : 0;
         $data['status'] = isset($data['status']) ? intval($data['status']) : 0;
         $data['iffixed'] = 0;
-        $data['options'] = $fieldInfo['ifoption'] ? $data['options'] : '';
+        $data['options'] = $fieldInfo['ifoption'] ? $data['setting'] : '';
         $fieldid = self::create($data, true);
         if ($fieldid) {
             //清理缓存
