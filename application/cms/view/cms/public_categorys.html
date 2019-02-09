@@ -18,6 +18,7 @@
     var zTree;
     var demoIframe;
     var zNodes = {$json|raw};
+    var zNodes2 = {$relation|raw};
     var setting = {
         data: {
             key: {
@@ -53,6 +54,10 @@
         $.fn.zTree.init($("#tree"), setting, zNodes);
         //获取对象
         var zTree = $.fn.zTree.getZTreeObj("tree");
+
+        $.fn.zTree.init($("#tree2"), setting, zNodes2);
+       // var zTree = $.fn.zTree.getZTreeObj("tree2");
+
         //全选
         $("#ztree_expandAll").click(function() {
             if ($(this).data("open")) {
@@ -83,8 +88,19 @@
                 </ul>
                 <ul id="tree" class="ztree" style="overflow:auto;"></ul>
             </td>
+
+        </tr>
+        <tr>
+            <td align=left valign=top>
+                <ul class="ztree" style="margin-left: 5px;margin-top:5px; padding: 0;">
+                    <li><a title="全部展开、折叠 "><span class="button ico_open"></span><span>扩展栏目列表</span></a> </li>
+                </ul>
+                <ul id="tree2" class="ztree" style="overflow:auto;"></ul>
+            </td>
+            
         </tr>
     </table>
+
 </body>
 
 </HTML>

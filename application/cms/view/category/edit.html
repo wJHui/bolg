@@ -12,7 +12,7 @@
                 </ul>
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
-                        <div class="layui-form-item">
+                        <div class="layui-form-item {eq name="data.relation" value="1" }lay-hide{/eq}">
                             <label>上级菜单</label>
                             <div class="w300">
                                 <select name="parentid" lay-verify="required">
@@ -21,7 +21,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="layui-form-item">
+                        <div class="layui-form-item {eq name="data.relation" value="1" }lay-hide{/eq}">
                             <label>栏目类型</label>
                             <div class="w300">
                                 <input type="radio" name="type" value="2" title="列表" {eq name="data.type" value="2" }checked{/eq} lay-filter="type">
@@ -32,10 +32,31 @@
                         <div class="layui-form-item web_list">
                             <label>选择模型</label>
                             <div class="w300">
-                                <select name="modelid">
+                                <select name="modelid" {eq name="data.relation" value="1" }disabled{/eq}>
                                     <option value="">请选择模型</option>
                                     {volist name="models" id="vo"}
-                                    <option value="{$vo.id}" {eq name="vo.id" value="$data['modelid']" }selected{/eq}>{$vo.name} </option> {/volist} </select> </div> </div> <div class="layui-form-item">
+                                    <option value="{$vo.id}" {eq name="vo.id" value="$data['modelid']" }selected{/eq}>{$vo.name} </option> {/volist} 
+                                </select> 
+                            </div> 
+                        </div> 
+                        <div class="layui-form-item web_list {eq name="data.relation" value="1" }lay-hide{/eq}" >
+                            <label>扩展列表</label>
+                            <div class="w300">
+                                <select name="relationid">
+                                    <option value="">请选择扩展列表</option>
+                                    {$relation|raw}
+                                </select>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">显示开启了‘关联列表’的分类</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="">关联列表</label>
+                            <div class="layui-form-field-label">
+                                <input type="checkbox" name="relation" disabled="disabled" lay-skin="switch" lay-filter="guanlian" lay-text="ON|OFF" value="{data.relation}" {eq name="data.relation" value="1" }checked{/eq}>  <!-- checked='' -->
+                            </div>
+                            <div class="layui-form-mid layui-word-aux"></div>
+                        </div>
+                                    <div class="layui-form-item">
                                         <label>栏目标题 </label>
                                         <div class="w300">
                                             <input type="text" name="catname" autocomplete="off" placeholder="栏目名称" class="layui-input" value="{$data.catname}">

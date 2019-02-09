@@ -24,6 +24,7 @@ use think\facade\Cache;
  */
 function getCategory($catid, $field = '', $newCache = false)
 {
+
     if (empty($catid)) {
         return false;
     }
@@ -59,6 +60,7 @@ function getCategory($catid, $field = '', $newCache = false)
             return $cache[$field];
         }
     } else {
+        
         return $cache;
     }
 }

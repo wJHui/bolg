@@ -16,7 +16,7 @@
     </div>
 </script>
 <script type="text/html" id="barTool">
-    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="add">添加子栏目</a>
+    <a class="layui-btn layui-btn-xs layui-btn-normal {{d.relation == 1 ? 'layui-hide' : ''}}" lay-event="add">添加子栏目</a>
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>

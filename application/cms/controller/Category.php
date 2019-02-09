@@ -75,17 +75,17 @@ class Category extends Adminbase
             switch ($data['type']) {
                 //单页
                 case 1:
-                    $fields = ['parentid', 'catname', 'catdir', 'type', 'image', 'description', 'setting', 'listorder', 'letter', 'status'];
+                    $fields = ['parentid', 'relationid', 'catname', 'catdir', 'type', 'image', 'description', 'setting', 'listorder', 'letter', 'status'];
                     $scene = 'page';
                     break;
                 //列表
                 case 2:
-                    $fields = ['parentid', 'catname', 'catdir', 'type', 'modelid', 'image', 'description', 'setting', 'listorder', 'letter', 'status'];
+                    $fields = ['parentid', 'relationid', 'relation', 'catname', 'catdir', 'type', 'modelid', 'image', 'description', 'setting', 'listorder', 'letter', 'status'];
                     $scene = 'list';
                     break;
                 //链接
                 case 3:
-                    $fields = ['parentid', 'catname', 'catdir', 'type', 'image', 'description', 'url', 'listorder', 'letter', 'status'];
+                    $fields = ['parentid', 'relationid', 'catname', 'catdir', 'type', 'image', 'description', 'url', 'listorder', 'letter', 'status'];
                     $scene = 'link';
                     break;
                 default:
@@ -113,6 +113,7 @@ class Category extends Adminbase
             //输出可用模型
             $modelsdata = cache("Model");
             $models = array();
+            
             foreach ($modelsdata as $v) {
                 if ($v['status'] == 1) {
                     $models[] = $v;
@@ -120,9 +121,17 @@ class Category extends Adminbase
             }
             //栏目列表 可以用缓存的方式
             $array = cache("Category");
+            $relationArr = array();
             foreach ($array as $k => $v) {
-                $array[$k] = getCategory($v['id']);
+                $cateresult =  getCategory($v['id']);
+                if($cateresult['relation'] == 0){
+                    $array[$k] = $cateresult;
+                }else{
+                    unset($array[$k]);
+                    $relationArr[$k] = $cateresult;
+                }
             }
+
             if (!empty($array) && is_array($array)) {
                 $tree = new \util\Tree();
                 $tree->icon = array('&nbsp;&nbsp;│ ', '&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;└─ ');
@@ -134,13 +143,26 @@ class Category extends Adminbase
                 $categorydata = '';
             }
 
+            if(!empty($relationArr) && is_array($relationArr)){
+                $tree2 = new \util\Tree();
+                $tree2->icon = array('&nbsp;&nbsp;│ ', '&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;└─ ');
+                $tree2->nbsp = '&nbsp;&nbsp;';
+                $str2 = "<option value='\$id' \$selected>\$spacer \$catname</option>";
+                $tree2->init($relationArr);
+                $realtiondata = $tree2->get_tree(0, $str2, 0);
+            }else{
+                $realtiondata = '';
+            }
+
             $this->assign("tp_category", $this->tp_category);
             $this->assign("tp_list", $this->tp_list);
             $this->assign("tp_show", $this->tp_show);
             $this->assign("tp_page", $this->tp_page);
 
             $this->assign("category", $categorydata);
+            $this->assign("relation", $realtiondata);
             $this->assign("models", $models);
+            
             return $this->fetch();
 
         }
@@ -180,7 +202,7 @@ class Category extends Adminbase
             if (true !== $result) {
                 return $this->error($result);
             }
-            $status = $this->Category_Model->editCategory($data, ['parentid', 'catname', 'catdir', 'type', 'modelid', 'image', 'description', 'url', 'setting', 'listorder', 'letter', 'status']);
+            $status = $this->Category_Model->editCategory($data, ['parentid', 'relationid', 'relation', 'catname', 'catdir', 'type', 'modelid', 'image', 'description', 'url', 'setting', 'listorder', 'letter', 'status']);
             if ($status) {
                 $this->success("修改成功！", url("Category/index"));
             } else {
@@ -201,16 +223,25 @@ class Category extends Adminbase
             $modelsdata = cache("Model");
             $models = array();
             foreach ($modelsdata as $v) {
-                if ($v['status'] == 1 && $v['type'] == 2) {
+                if ($v['status'] == 1) { /*&& $v['type'] == 2*/
                     $models[] = $v;
                 }
             }
 
+
             //栏目列表 可以用缓存的方式
             $array = cache("Category");
+            $relationArr = array();
             foreach ($array as $k => $v) {
-                $array[$k] = getCategory($v['id']);
+                $cateresult =  getCategory($v['id']);
+                if($cateresult['relation'] == 0){
+                    $array[$k] = $cateresult;
+                }else{
+                    unset($array[$k]);
+                    $relationArr[$k] = $cateresult;
+                }
             }
+
             if (!empty($array) && is_array($array)) {
                 $tree = new \util\Tree();
                 $tree->icon = array('&nbsp;&nbsp;│ ', '&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;└─ ');
@@ -222,6 +253,17 @@ class Category extends Adminbase
                 $categorydata = '';
             }
 
+            if(!empty($relationArr) && is_array($relationArr)){
+                $tree2 = new \util\Tree();
+                $tree2->icon = array('&nbsp;&nbsp;│ ', '&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;└─ ');
+                $tree2->nbsp = '&nbsp;&nbsp;';
+                $str2 = "<option value='\$id' \$selected>\$spacer \$catname</option>";
+                $tree2->init($relationArr);
+                $realtiondata = $tree2->get_tree(0, $str2, 0);
+            }else{
+                $realtiondata = '';
+            }
+
             $this->assign("tp_category", $this->tp_category);
             $this->assign("tp_list", $this->tp_list);
             $this->assign("tp_show", $this->tp_show);
@@ -230,6 +272,7 @@ class Category extends Adminbase
             $this->assign("data", $data);
             $this->assign("setting", $setting);
             $this->assign("category", $categorydata);
+            $this->assign("relation", $realtiondata);
             $this->assign("models", $models);
             return $this->fetch();
         }

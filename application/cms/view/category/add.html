@@ -12,7 +12,7 @@
                 </ul>
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
-                        <div class="layui-form-item">
+                        <div class="layui-form-item relation-elem">
                             <label>上级菜单</label>
                                 <div class="w300">
                                     <select name="parentid" lay-verify="required">
@@ -21,25 +21,42 @@
                                     </select>
                                 </div>
                         </div>
-                        <div class="layui-form-item">
+                        <div class="layui-form-item relation-elem">
                             <label>栏目类型</label>
                                 <div class="w300">
-                                    <input type="radio" name="type" value="2" title="列表" checked lay-filter="type">
+                                    <input type="radio" id="radio-deflute" name="type" value="2" title="列表" checked lay-filter="type">
                                     <input type="radio" name="type" value="1" title="单页" lay-filter="type">
                                     <input type="radio" name="type" value="3" title="链接" lay-filter="type">
                                 </div>
                         </div>
                         <div class="layui-form-item web_list">
                             <label>选择模型</label>
-                                <div class="w300">
-                                    <select name="modelid">
-                                        <option value="">请选择模型</option>
-                                        {volist name="models" id="vo"}
-                                        <option value="{$vo.id}">{$vo.name}</option>
-                                        {/volist}
-                                    </select>
-                                </div>
+                            <div class="w300">
+                                <select name="modelid">
+                                    <option value="">请选择模型</option>
+                                    {volist name="models" id="vo"}
+                                    <option value="{$vo.id}">{$vo.name}</option>
+                                    {/volist}
+                                </select>
+                            </div>
                         </div>
+                        <div class="layui-form-item relation-elem">
+                            <label>扩展列表</label>
+                            <div class="w300">
+                                <select name="relationid">
+                                    <option value="">请选择扩展列表</option>
+                                    {$relation|raw}
+                                </select>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">显示开启了‘关联列表’的分类</div>
+                        </div>
+                        <div class="layui-form-item">
+						    <label class="">关联列表</label>
+						    <div class="layui-form-field-label">
+						        <input type="checkbox" name="relation" lay-skin="switch" lay-filter="guanlian" lay-text="ON|OFF" value="0">  <!-- checked='' -->
+						    </div>
+						    <div class="layui-form-mid layui-word-aux">开启后该列表作为其他列表的扩展选项</div>
+						</div>
                         <div class="layui-form-item">
                             <label>栏目标题 </label>
                                 <div class="w300">
@@ -183,9 +200,27 @@ layui.use(['layer', 'form'], function() {
         form = layui.form;
     setFieldOption($('input:radio[name="type"]:checked').val());
     form.on('radio(type)', function(data) {
-        setFieldOption(data.value);
+    	setFieldOption(data.value);
         //console.log(data.elem); //得到radio原始DOM对象
         //console.log(data.value); //被点击的radio的value值
+    });
+
+    form.on('switch(guanlian)', function(data) {
+    	var _that = $(data.elem);
+    	_that.val(_that.val() == 1 ? 0 : 1)
+
+    	if(_that.val() == 1){
+    		$('.relation-elem').hide()
+
+    		$('select[name=parentid]').val(0)
+    		$('select[name=relationid]').val('')
+    		$('#radio-deflute').get(0).checked = true; 
+
+    		setFieldOption($('#radio-deflute').val());
+    		form.render();
+    	}else{
+    		$('.relation-elem').show()
+    	}
     });
 
     function setFieldOption(typeid) {
