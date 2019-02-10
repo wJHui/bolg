@@ -23,6 +23,9 @@
 <script type="text/html" id="statusTpl">
     <input type="checkbox" name="status" value="{{d.id}}" lay-skin="switch" lay-text="显示|隐藏" lay-filter="status" {{ d.status==1 ? 'checked' : '' }}>
 </script>
+<script type="text/html" id="relationTpl">
+    <span class="{{d.relation == 1 ? 'jia-blue' : ''}}">{{d.catname}}</span>
+</script>
 {/block}
 {block name="script"}
 <script>
@@ -38,7 +41,7 @@ layui.use('table', function() {
             [
                 { field: 'listorder', width: 70, title: '排序', edit: 'text' },
                 { field: 'id', width: 70, title: 'ID' },
-                { field: 'catname', title: '栏目名称' },
+                { field: 'catname', title: '栏目名称', templet : '#relationTpl' },
                 { field: 'catdir', width: 150, title: '唯一标识' },
                 { field: 'type',width: 100, title: '栏目类型',templet: '<div>{{#  if(d.type==1){ }} 单页 {{#  } else if(d.type==2){  }} 列表 {{#  } else if(d.type==3){ }} 链接 {{#  } else { }} 未知 {{#  } }}</div>' },
                 { field: 'modelname',width: 150, title: '所属模型' },

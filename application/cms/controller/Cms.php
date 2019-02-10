@@ -15,6 +15,7 @@
 namespace app\cms\controller;
 
 use app\cms\model\ModelField as Model_Field;
+use app\cms\model\Models;
 use app\cms\model\Page as Page_Model;
 use app\common\controller\Adminbase;
 use think\Db;
@@ -64,6 +65,7 @@ class Cms extends Adminbase
     //添加栏目
     public function add()
     {
+
         if ($this->request->isPost()) {
             $data = $this->request->post();
             $catid = intval($data['modelField']['catid']);
@@ -91,6 +93,8 @@ class Cms extends Adminbase
             $this->success('操作成功！');
         } else {
             $catid = $this->request->param('catid/d', 0);
+
+
             $category = getCategory($catid);
             if (empty($category)) {
                 $this->error('该栏目不存在！');
@@ -104,6 +108,9 @@ class Cms extends Adminbase
                     if ($_value['modelid'] && $modelid !== $_value['modelid']) {
                         continue;
                     }
+                    if($category['relation'] == 1){
+                        continue;
+                    }
                     //如果设置了模型，又设置了栏目
                     if ($_value['modelid'] && $_value['catid'] && $catid !== $_value['catid']) {
                         continue;
@@ -115,13 +122,39 @@ class Cms extends Adminbase
                     $array[$_key] = $_value['name'];
                 }
                 $fieldList = $this->modelfield->getFieldList($modelid);
+
+                /* 获取扩展内容 */
+
+                $relationdata = '';
+                if($category['relationid'] != 0){
+                    $relation_cate = getCategory($category['relationid']);
+                    $relation_model = Models::get($relation_cate['modelid']);
+                   // var_dump($relation_model->tablename);
+                    $result = Db($relation_model->tablename)->where('status', 1)->select();
+
+                    //var_dump($result);
+                   
+                    if (!empty($result) && is_array($result)) {
+                        $str = '';
+                        foreach($result as $k=>$v){
+                            $str .= "<option value='".$v['title']."'>".$v['title']."</option>";
+                        }
+                        $relationdata = $str;
+                    } 
+                }
+
+                /* 获取扩展内容 END */
+
+
                 $this->assign([
                     'position' => $array,
                     'catid' => $catid,
                     'fieldList' => $fieldList,
+                    "relation" => $relationdata
                 ]);
                 return $this->fetch();
             } else if ($category['type'] == 1) {
+
                 $Page_Model = new Page_Model;
                 $info = $Page_Model->getPage($catid);
                 $this->assign([
@@ -169,6 +202,9 @@ class Cms extends Adminbase
                     if ($_value['modelid'] && $_value['catid'] && $catid !== $_value['catid']) {
                         continue;
                     }
+                    if($category['relation'] == 1){
+                        continue;
+                    }
                     //如果设置了栏目
                     if ($_value['catid'] && $catid !== $_value['catid']) {
                         continue;
@@ -178,11 +214,39 @@ class Cms extends Adminbase
                 //已经推荐
                 $result = model('PositionData')->where(['id' => $id, 'modelid' => $modelid])->column("id");
                 $posids = implode(',', array_keys($result));
+
+                /* 获取扩展内容 */
+                $relationdata = '';
+                if($category['relationid'] != 0){
+                    $relation_cate = getCategory($category['relationid']);
+                    $relation_model = Models::get($relation_cate['modelid']);
+                   // var_dump($relation_model->tablename);
+                    $result = Db($relation_model->tablename)->where('status', 1)->select();
+
+                    //var_dump($result);
+                   
+                    if (!empty($result) && is_array($result)) {
+                        $str = '';
+                        foreach($result as $k=>$v){
+                            if($fieldList['relation']['value'] == $v['title']){
+                                $str .= "<option value='".$v['title']."' selected >".$v['title']."</option>";
+                            }else{
+                                $str .= "<option value='".$v['title']."'>".$v['title']."</option>";
+                            }
+                            
+                        }
+                        $relationdata = $str;
+                    } 
+                }
+
+                /* 获取扩展内容 END */
+               // var_dump($fieldList);
                 $this->assign([
                     'posids' => $posids,
                     'position' => $array,
                     'catid' => $catid,
                     'fieldList' => $fieldList,
+                    "relation" => $relationdata
                 ]);
                 return $this->fetch();
             } else {

@@ -165,6 +165,7 @@ class Models extends Modelbase
 				`id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '文档ID',
                 `catid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '栏目ID',
 				`title` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
+                `relation` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '扩展内容',
 				`keywords` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO关键词',
 				`description` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'SEO描述',
 				`posid` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '推荐位',
@@ -240,6 +241,15 @@ EOF;
                 'ifeditable' => 1,
                 'ifrequire' => 1,
                 'iffixed' => 0,
+            ],
+            [
+                'name' => 'relation',
+                'title' => '扩展',
+                'define' => 'varchar(255)',
+                'type' => 'text',
+                'ifsearch' => 0,
+                'ifeditable' => 1,
+                'iffixed' => 1,
             ],
             [
                 'name' => 'keywords',

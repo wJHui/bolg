@@ -1,6 +1,16 @@
 {extend name="admin@index_layout"/}
 {block name="main"}
 <form class="layui-form form-horizontal" action="" method="post">
+    
+    <div class="layui-form-item {eq name='relation' value=''}layui-hide{/eq}">
+        <label>扩展列表 <font color="red">*</font></label>
+        <div class="layui-form-field-label">
+            <select name="modelField[relation]">
+                <option value="">请选择扩展列表</option>
+                {$relation|raw}
+            </select>
+        </div>
+    </div>
     {include file="admin@inputItem" /}
     <input type="hidden" name="modelField[catid]" value="{$catid}">
     <input type='hidden' name='modelField[posid][]' value='-1'>

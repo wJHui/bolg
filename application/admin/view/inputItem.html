@@ -6,6 +6,7 @@
 {if $vo.value}<input type="hidden" class="form-control" name="{$vo.fieldArr}[{$vo.name}]"  value="{$vo.value}">{/if}
 {/case}
 {case value="text"}
+{neq name="vo.name" value="relation"}
 <div class="layui-form-item">
     <label class="">{$vo.title} {if condition="isset($vo.ifrequire) AND $vo.ifrequire"}&nbsp;<font color="red">*</font>{/if}</label>
     <div class="layui-form-field-label">
@@ -13,6 +14,7 @@
     </div>
     {if $vo.remark}<div class="layui-form-mid layui-word-aux">{$vo.remark|raw}</div>{/if}
 </div>
+{/neq}
 {/case}
 {case value="number"}
 <div class="layui-form-item">

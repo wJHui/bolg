@@ -259,7 +259,7 @@ class Category extends Adminbase
                 $tree2->nbsp = '&nbsp;&nbsp;';
                 $str2 = "<option value='\$id' \$selected>\$spacer \$catname</option>";
                 $tree2->init($relationArr);
-                $realtiondata = $tree2->get_tree(0, $str2, 0);
+                $realtiondata = $tree2->get_tree(0, $str2, $data['relationid']);
             }else{
                 $realtiondata = '';
             }
