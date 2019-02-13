@@ -42,11 +42,16 @@
                         </div>
                         <div class="layui-form-item relation-elem">
                             <label>扩展列表</label>
-                            <div class="w300">
-                                <select name="relationid">
-                                    <option value="">请选择扩展列表</option>
-                                    {$relation|raw}
-                                </select>
+                            <div class="">
+                            	<div class="w300 inline-height">
+	                                <select name="relationid">
+	                                    <option value="">请选择扩展列表</option>
+	                                    {$relation|raw}
+	                                </select>
+	                            </div>
+                                 <div class="inline-height jia-relation">
+                                <input type="checkbox" name="multiple" lay-skin="switch" lay-text="ON|OFF" value="{data.multiple}">
+                                </div>
                             </div>
                             <div class="layui-form-mid layui-word-aux">显示开启了‘关联列表’的分类</div>
                         </div>
@@ -215,6 +220,9 @@ layui.use(['layer', 'form'], function() {
     		$('select[name=parentid]').val(0)
     		$('select[name=relationid]').val('')
     		$('#radio-deflute').get(0).checked = true; 
+
+            $('input[name=status][value=0]').get(0).checked = true;
+            $('input[name=status][value=1]').get(0).disabled = 'disabled';
 
     		setFieldOption($('#radio-deflute').val());
     		form.render();

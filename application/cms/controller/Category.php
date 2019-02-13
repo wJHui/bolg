@@ -80,7 +80,7 @@ class Category extends Adminbase
                     break;
                 //列表
                 case 2:
-                    $fields = ['parentid', 'relationid', 'relation', 'catname', 'catdir', 'type', 'modelid', 'image', 'description', 'setting', 'listorder', 'letter', 'status'];
+                    $fields = ['parentid', 'relationid', 'multiple', 'relation', 'catname', 'catdir', 'type', 'modelid', 'image', 'description', 'setting', 'listorder', 'letter', 'status'];
                     $scene = 'list';
                     break;
                 //链接
@@ -202,7 +202,7 @@ class Category extends Adminbase
             if (true !== $result) {
                 return $this->error($result);
             }
-            $status = $this->Category_Model->editCategory($data, ['parentid', 'relationid', 'relation', 'catname', 'catdir', 'type', 'modelid', 'image', 'description', 'url', 'setting', 'listorder', 'letter', 'status']);
+            $status = $this->Category_Model->editCategory($data, ['parentid', 'relationid', 'relation', 'catname', 'catdir', 'multiple', 'type', 'modelid', 'image', 'description', 'url', 'setting', 'listorder', 'letter', 'status']);
             if ($status) {
                 $this->success("修改成功！", url("Category/index"));
             } else {
@@ -216,7 +216,6 @@ class Category extends Adminbase
                 $this->error('请选择需要修改的栏目！');
             }
             $data = getCategory($id);
-            
             $setting = $data['setting'];
 
             //输出可用模型

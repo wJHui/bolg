@@ -4,10 +4,12 @@
     <div class="layui-form-item {eq name='relation' value=''}layui-hide{/eq}">
         <label>扩展列表 <font color="red">*</font></label>
         <div class="layui-form-field-label">
-            <select name="modelField[relation]">
-                <option value="">请选择扩展列表</option>
-                {$relation|raw}
-            </select>
+            <div class="tags-wrap clear" data-multiple="{$category['multiple']}" onclick="tags(event, this)">
+            	{volist name="relation" id="vo"}
+				<span class="tags-item {if in_array($vo['title'], $relationselect)}active{/if}" data-value="{$vo.title}">{$vo.title}</span>
+				{/volist}
+			</div>
+			<input type="hidden" id="relation" name="modelField[relation]" value="{$fieldList['relation']['value']}">
         </div>
     </div>
     {include file="admin@inputItem" /}
@@ -33,6 +35,43 @@
 {/block}
 {block name="script"}
 <script type="text/javascript">
+	function tags(e, _this){
+		var _that = e.target,
+		    multiple = $(_this).data('multiple'),
+		    value = [],
+		    input = $('#relation');
+
+		if(input.val() != ''){
+			value = input.val().split(',');
+		}
+
+		
+		if(_that.tagName.toLowerCase() == 'span'){
+			_that = $(_that);
+			var dataVlue = _that.data('value');
+
+			if(_that.is('.active')){
+				_that.removeClass('active');
+
+				var _index = value.indexOf(dataVlue);
+				value.splice(_index, 1);
+			}else{
+				if(multiple == 1){
+					_that.addClass('active');
+					value.push(dataVlue);
+
+				}else{
+					_that.addClass('active').siblings().removeClass('active');
+					value.splice(0, 1, dataVlue);
+				}
+				
+			}
+
+			input.val(value.join(','));
+			//console.log(value)
+		}
+		
+	}
     layui.use(['form','layer'], function() {
         $('.ajax-post').on('click', function(e) {
             var form = layui.form,
