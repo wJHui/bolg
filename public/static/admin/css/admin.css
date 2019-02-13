@@ -29,6 +29,11 @@ code {
     background-color: #f9f2f4;
     border-radius: 4px;
 }
+.inline-height{
+    display: inline-block;
+}
+
+
 .childrenBody {padding: 15px;background-color: #F2F2F2; }
 .panel_box{ margin-bottom:5px;}
 .panel{ text-align:center; height:90px;}
@@ -193,3 +198,37 @@ code {
 .uploader-list .thumbnail>img {
     cursor: zoom-in;
 }
+
+
+.jia-relation .layui-form-switch{
+    margin-top: -2px !important;
+    margin-left: 10px;
+}
+
+
+
+.tags-wrap{
+        font-size: 0;
+        line-height: 0;
+        margin-top: 10px;
+    }
+
+    .tags-item{
+        font-size: 14px;
+        line-height: 34px;
+        color: #444;
+        border: 1px solid #ccc;
+        display: inline-block;
+        padding: 0 20px;
+        margin-right: 10px;
+        border-radius: 4px;
+        overflow: hidden;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .tags-item.active{
+        border-color: #1e9fff;
+        background: url(../img/selected.png) no-repeat right bottom;
+        background-size: 20px;
+    }

@@ -125,32 +125,24 @@ class Cms extends Adminbase
 
                 /* 获取扩展内容 */
 
-                $relationdata = '';
+                $relationdata = [];
                 if($category['relationid'] != 0){
                     $relation_cate = getCategory($category['relationid']);
                     $relation_model = Models::get($relation_cate['modelid']);
                    // var_dump($relation_model->tablename);
-                    $result = Db($relation_model->tablename)->where('status', 1)->select();
+                    $relationdata = Db($relation_model->tablename)->where(['status' => 1, 'catid' => $relation_cate['id']])->select();
 
-                    //var_dump($result);
-                   
-                    if (!empty($result) && is_array($result)) {
-                        $str = '';
-                        foreach($result as $k=>$v){
-                            $str .= "<option value='".$v['title']."'>".$v['title']."</option>";
-                        }
-                        $relationdata = $str;
-                    } 
                 }
 
                 /* 获取扩展内容 END */
-
+                //var_dump($category);
 
                 $this->assign([
                     'position' => $array,
                     'catid' => $catid,
                     'fieldList' => $fieldList,
-                    "relation" => $relationdata
+                    "relation" => $relationdata,
+                    'category' => $category
                 ]);
                 return $this->fetch();
             } else if ($category['type'] == 1) {
@@ -216,37 +208,28 @@ class Cms extends Adminbase
                 $posids = implode(',', array_keys($result));
 
                 /* 获取扩展内容 */
-                $relationdata = '';
+                $relationdata = [];
+                $relationselect = [];
                 if($category['relationid'] != 0){
                     $relation_cate = getCategory($category['relationid']);
                     $relation_model = Models::get($relation_cate['modelid']);
-                   // var_dump($relation_model->tablename);
-                    $result = Db($relation_model->tablename)->where('status', 1)->select();
-
-                    //var_dump($result);
                    
-                    if (!empty($result) && is_array($result)) {
-                        $str = '';
-                        foreach($result as $k=>$v){
-                            if($fieldList['relation']['value'] == $v['title']){
-                                $str .= "<option value='".$v['title']."' selected >".$v['title']."</option>";
-                            }else{
-                                $str .= "<option value='".$v['title']."'>".$v['title']."</option>";
-                            }
-                            
-                        }
-                        $relationdata = $str;
-                    } 
+                    $relationdata = Db($relation_model->tablename)->where(['status' => 1, 'catid' => $relation_cate['id']])->select();
+
+                    $relationselect = explode(',', $fieldList['relation']['value']);
+                    
                 }
 
                 /* 获取扩展内容 END */
-               // var_dump($fieldList);
+               
                 $this->assign([
                     'posids' => $posids,
                     'position' => $array,
                     'catid' => $catid,
                     'fieldList' => $fieldList,
-                    "relation" => $relationdata
+                    'category' => $category,
+                    "relation" => $relationdata,
+                    "relationselect" => $relationselect
                 ]);
                 return $this->fetch();
             } else {
@@ -295,49 +278,49 @@ class Cms extends Adminbase
             }
             
             if($rs['relation'] == 0){
-            	 $data = array(
-	                'id' => $rs['id'],
-	                'parentid' => $rs['parentid'],
-	                'catname' => $rs['catname'],
-	                'type' => $rs['type'],
-	            );
+                 $data = array(
+                    'id' => $rs['id'],
+                    'parentid' => $rs['parentid'],
+                    'catname' => $rs['catname'],
+                    'type' => $rs['type'],
+                );
 
-	            //终极栏目
-	            if ($rs['child'] == 0) {
-	                $data['target'] = 'right';
-	                $data['url'] = url('cms/cms/classlist', array('catid' => $rs['id']));
-	            } else {
-	                $data['isParent'] = true;
-	            }
+                //终极栏目
+                if ($rs['child'] == 0) {
+                    $data['target'] = 'right';
+                    $data['url'] = url('cms/cms/classlist', array('catid' => $rs['id']));
+                } else {
+                    $data['isParent'] = true;
+                }
 
-	            //单页
-	            if ($rs['type'] == 1 && $rs['child'] == 0) {
-	                $data['url'] = url('cms/cms/add', array('catid' => $rs['id']));
-	            }
+                //单页
+                if ($rs['type'] == 1 && $rs['child'] == 0) {
+                    $data['url'] = url('cms/cms/add', array('catid' => $rs['id']));
+                }
 
-	            $json[] = $data;
+                $json[] = $data;
             }else{
-            	 $data2 = array(
-	                'id' => $rs['id'],
-	                'parentid' => $rs['parentid'],
-	                'catname' => $rs['catname'],
-	                'type' => $rs['type'],
-	            );
+                 $data2 = array(
+                    'id' => $rs['id'],
+                    'parentid' => $rs['parentid'],
+                    'catname' => $rs['catname'],
+                    'type' => $rs['type'],
+                );
 
-	            //终极栏目
-	            if ($rs['child'] == 0) {
-	                $data2['target'] = 'right';
-	                $data2['url'] = url('cms/cms/classlist', array('catid' => $rs['id']));
-	            } else {
-	                $data2['isParent'] = true;
-	            }
+                //终极栏目
+                if ($rs['child'] == 0) {
+                    $data2['target'] = 'right';
+                    $data2['url'] = url('cms/cms/classlist', array('catid' => $rs['id']));
+                } else {
+                    $data2['isParent'] = true;
+                }
 
-	            //单页
-	            if ($rs['type'] == 1 && $rs['child'] == 0) {
-	                $data2['url'] = url('cms/cms/add', array('catid' => $rs['id']));
-	            }
+                //单页
+                if ($rs['type'] == 1 && $rs['child'] == 0) {
+                    $data2['url'] = url('cms/cms/add', array('catid' => $rs['id']));
+                }
 
-	            $relation[] = $data2;
+                $relation[] = $data2;
             }
         }
         $this->assign('json', json_encode($json));
