@@ -1,6 +1,10 @@
 body{
 	padding-bottom: 60px;
 }
+
+a:hover{
+	text-decoration: none;
+}
 #header{
 	width: 60px;
 	height: 100vh;
@@ -15,9 +19,22 @@ body{
 .container{}
 
 .content-item{
-	height: 300px;
-	background: #000;
-	margin-bottom: 16px;
+	
+}
+.index-item-title{
+	padding: 10px 0;
+	margin-bottom: 20px;
+}
+.index-item-title a{
+	font-size: 32px;
+	font-weight: 500;
+	letter-spacing: 2px;
+	color: #444;
+}
+
+.index-item-footer{
+	font-size: 16px;
+	margin-top: 20px;
 }
 
 .content-top{
@@ -34,4 +51,25 @@ body{
 	bottom: 0;
 	z-index: 10000;
 	border-top: 1px solid #e6e6e6;
+}
+
+ol, ul{
+	list-style-type: none;
+	padding: 0;
+}
+
+#navbar{
+	height: 60%;
+	
+}
+#navbar li{
+	padding: 4px;
+	font-size: 18px;
+	letter-spacing: 4px;
+	text-align: center;
+	margin: 10px 0;
+}
+
+#navbar li a{
+	color: #fff;
 }

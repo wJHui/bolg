@@ -3,10 +3,14 @@
 <main id="content" class="container">
 	<section class="content-top"></section>
 	<section class="content-lists">
-		<div class="content-item"></div>
-		<div class="content-item"></div>
-		<div class="content-item"></div>
-		<div class="content-item"></div>
-		<div class="content-item"></div>
+		{volist name="result['article']" id='vo'}
+		<div class="content-item">
+			<h3 class="index-item-title"><a href="#">{$vo['title']}</a></h3>
+			<div class="index-content">{$vo['article_aata']['markdown']}</div>
+			<div class="index-item-footer text-right">
+				<a href="#">阅读全文</a>	2月14日, 2019
+			</div>
+		</div>
+		{/volist}
 	</section>
 </main>

@@ -14,9 +14,11 @@
 // +----------------------------------------------------------------------
 namespace app\common\controller;
 
+
 use app\index\model\Config;
 use app\index\model\Category;
-
+use app\index\model\Imodel;
+use think\facade\Route;
 class Homebase extends Base
 {
 	public $site_global = [];
@@ -24,7 +26,14 @@ class Homebase extends Base
 		parent::initialize();
 
 		$this->site_global['config'] = Config::getConfig();
-		$this->site_global['category'] = Category::getCategory()->toArray();
+
+		$category = Category::getCategory();
+		$category_array = $category->toarray();
+		foreach($category as $k=>$v){
+			$category[$k]->model = $v->model;
+		}
+
+		$this->site_global['category'] = $category->toArray();
 
 		$this->assign('site_global', $this->site_global);
 	}

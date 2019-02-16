@@ -1,1 +1,9 @@
-<header id="header"></header>
+<header id="header">
+	<nav id="navbar">
+		<ul>
+			{volist name="site_global['category']" id='vo'}
+			<li><a href="{:url('/'.$vo['catdir'])}">{$vo['catname']}</a></li>
+			{/volist}
+		</ul>
+	</nav>
+</header>
