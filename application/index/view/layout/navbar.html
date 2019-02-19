@@ -2,7 +2,11 @@
 	<nav id="navbar">
 		<ul>
 			{volist name="site_global['category']" id='vo'}
+			{if $vo['catdir'] == 'news'}
+			<li><a href="{:url('/index')}">{$vo['catname']}</a></li>
+			{else}
 			<li><a href="{:url('/'.$vo['catdir'])}">{$vo['catname']}</a></li>
+			{/if}
 			{/volist}
 		</ul>
 	</nav>

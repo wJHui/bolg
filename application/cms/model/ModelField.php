@@ -448,7 +448,7 @@ EOF;
                         break;
                     // 百度编辑器
                     case 'Ueditor':
-                        ${$arr}[$name] = htmlspecialchars(stripslashes(${$arr}[$name]));
+                        ${$arr}[$name] = ${$arr}[$name];
                         break;
                     // 简洁编辑器
                     case 'summernote':

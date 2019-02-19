@@ -5,10 +5,11 @@
 	<section class="content-lists">
 		{volist name="result['article']" id='vo'}
 		<div class="content-item">
-			<h3 class="index-item-title"><a href="#">{$vo['title']}</a></h3>
-			<div class="index-content">{$vo['article_aata']['markdown']}</div>
+			<h3 class="index-item-title"><a href="{:url('/detail', ['id' => $vo['id']])}">{$vo['title']}</a></h3>
+			<div class="index-content">{$vo['article_aata']['content']|raw}</div>
+
 			<div class="index-item-footer text-right">
-				<a href="#">阅读全文</a>	2月14日, 2019
+				<a href="{:url('/detail', ['id' => $vo['id']])}">阅读全文</a>&emsp;{:date('m月d日, Y', $vo['inputtime'])} 
 			</div>
 		</div>
 		{/volist}

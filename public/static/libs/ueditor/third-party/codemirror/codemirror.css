@@ -1,16 +1,16 @@
-/* .CodeMirror {
+.CodeMirror2 {
     line-height: 1em;
     font-family: monospace;
 }
 
-.CodeMirror-scroll {
+.CodeMirror2-scroll {
     overflow: auto;
     height: 300px;
    
     position: relative;
 }
 
-.CodeMirror-gutter {
+.CodeMirror2-gutter {
     position: absolute; left: 0; top: 0;
     z-index: 10;
     background-color: #f7f7f7;
@@ -18,17 +18,17 @@
     min-width: 2em;
     height: 100%;
 }
-.CodeMirror-gutter-text {
+.CodeMirror2-gutter-text {
     color: #aaa;
     text-align: right;
     padding: .4em .2em .4em .4em;
     white-space: pre !important;
 }
-.CodeMirror-lines {
+.CodeMirror2-lines {
     padding: .4em;
 }
 
-.CodeMirror pre {
+.CodeMirror2 pre {
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
     -o-border-radius: 0;
@@ -41,32 +41,32 @@
     word-wrap: normal;
 }
 
-.CodeMirror-wrap pre {
+.CodeMirror2-wrap pre {
     word-wrap: break-word;
     white-space: pre-wrap;
 }
-.CodeMirror-wrap .CodeMirror-scroll {
+.CodeMirror2-wrap .CodeMirror2-scroll {
     overflow-x: hidden;
 }
 
-.CodeMirror textarea {
+.CodeMirror2 textarea {
     outline: none !important;
 }
 
-.CodeMirror pre.CodeMirror-cursor {
+.CodeMirror2 pre.CodeMirror2-cursor {
     z-index: 10;
     position: absolute;
     visibility: hidden;
     border-left: 1px solid black;
 }
-.CodeMirror-focused pre.CodeMirror-cursor {
+.CodeMirror2-focused pre.CodeMirror2-cursor {
     visibility: visible;
 }
 
-span.CodeMirror-selected { background: #d9d9d9; }
-.CodeMirror-focused span.CodeMirror-selected { background: #d2dcf8; }
+span.CodeMirror2-selected { background: #d9d9d9; }
+.CodeMirror2-focused span.CodeMirror2-selected { background: #d2dcf8; }
 
-.CodeMirror-searching {background: #ffa;}
+.CodeMirror2-searching {background: #ffa;}
 
 
 .cm-s-default span.cm-keyword {color: #708;}
@@ -98,6 +98,5 @@ span.cm-em {font-style: italic;}
 span.cm-emstrong {font-style: italic; font-weight: bold;}
 span.cm-link {text-decoration: underline;}
 
-div.CodeMirror span.CodeMirror-matchingbracket {color: #0f0;}
-div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
- */
+div.CodeMirror2 span.CodeMirror2-matchingbracket {color: #0f0;}
+div.CodeMirror2 span.CodeMirror2-nonmatchingbracket {color: #f22;}

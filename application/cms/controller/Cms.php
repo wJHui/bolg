@@ -144,7 +144,7 @@ class Cms extends Adminbase
                     "relation" => $relationdata,
                     'category' => $category
                 ]);
-                return $this->fetch();
+               return $this->fetch();
             } else if ($category['type'] == 1) {
 
                 $Page_Model = new Page_Model;

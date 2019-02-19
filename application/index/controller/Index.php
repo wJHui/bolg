@@ -26,8 +26,17 @@ class Index extends Homebase
       
         $result = [];
 
-		$result['article'] = Article::withJoin('articleAata', 'LEFT')->select()->toArray();
+		$article = Article::withJoin('articleAata', 'LEFT')->select()->toArray();
+        
+        foreach($article as $k=>$v){
+            
+            $preg = '/(<p>\s?<br\s?\/>\s?<\/p>){3}.+/';
 
+            $article[$k]['article_aata'] = preg_replace($preg, '', $v['article_aata']);
+        }
+
+        $result['article'] = $article;
+        
         $this->assign('result', $result);	
     
       	return $this->fetch();
@@ -79,9 +88,15 @@ class Index extends Homebase
 
         $detail = Article::hasWhere('articleAata')->find();
 
+        $preg = '/(<p>\s?<br\s?\/>\s?<\/p>){3}/';
+        $content = preg_replace($preg, '<p><br/></p>', $detail->articleAata->content);
+
         $result['detail'] = $detail;
             
-        $this->assign('result', $result);
+        $this->assign(array(
+            'result' => $result,
+            'content' => $content
+        ));
             return $this->fetch();
         }
 
