@@ -88,6 +88,9 @@ class Ueditor extends Attachments
             case 'uploadimage':
                 return $this->saveFile('images', 'ueditor');
                 break;
+            case 'markdown':
+                return $this->saveFile2('images', 'ueditor');
+                break;
             /* 上传涂鸦 */
             case 'uploadscrawl':
                 return $this->saveFile('images', 'ueditor_scrawl');

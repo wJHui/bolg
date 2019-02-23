@@ -1,7 +1,7 @@
 {extend name="admin@index_layout"/}
 {block name="main"}
 <form class="layui-form form-horizontal" action="" method="post">
-    <div class="layui-form-item {eq name='relation' value=''}layui-hide{/eq}">
+    <div class="layui-form-item {if $category['relationid'] == 0}layui-hide{/if}">
         <label>扩展列表 <font color="red">*</font></label>
         <div class="layui-form-field-label">
             <div class="tags-wrap clear" data-multiple="{$category['multiple']}" onclick="tags(event, this)">

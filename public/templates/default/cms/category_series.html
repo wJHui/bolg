@@ -1,42 +1,13 @@
 {layout name="layout/index_layout" /}
 
-<main class="container series-wrap">
+<main class="series-wrap" id="content">
 	<ul class="row">
+		{volist name="list" id="vo"}
 		<li class="col-xs-3">
-			<div class="series-item"></div>
+			<div class="series-item">
+				{$vo['title']}
+			</div>
 		</li>
-		<li class="col-xs-3">
-			<div class="series-item"></div>
-		</li>
-		<li class="col-xs-3">
-			<div class="series-item"></div>
-		</li>
-		<li class="col-xs-3">
-			<div class="series-item"></div>
-		</li>
-		<li class="col-xs-3">
-			<div class="series-item"></div>
-		</li>
-		<li class="col-xs-3">
-			<div class="series-item"></div>
-		</li>
-		<li class="col-xs-3">
-			<div class="series-item"></div>
-		</li>
-		<li class="col-xs-3">
-			<div class="series-item"></div>
-		</li>
-		<li class="col-xs-3">
-			<div class="series-item"></div>
-		</li>
-		<li class="col-xs-3">
-			<div class="series-item"></div>
-		</li>
-		<li class="col-xs-3">
-			<div class="series-item"></div>
-		</li>
-		<li class="col-xs-3">
-			<div class="series-item"></div>
-		</li>
+		{/volist}
 	</ul>
 </main>
