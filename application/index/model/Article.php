@@ -5,7 +5,7 @@ use think\Model;
 
 class Article extends Model {
 
-	public function articleAata (){
+	public function articleData (){
 
 		return $this->hasOne('article_data', 'did');
 	}

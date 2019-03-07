@@ -3,10 +3,12 @@
 <main class="series-wrap" id="content">
 	<ul class="row">
 		{volist name="list" id="vo"}
-		<li class="col-xs-3">
-			<div class="series-item">
+		<li class="col-xs-3" >
+			<a href="{:url('/list', ['id' => $vo['id']])}">
+			<div class="series-item" style="background: {$vo['color']}">
 				{$vo['title']}
 			</div>
+			</a>
 		</li>
 		{/volist}
 	</ul>

@@ -1,0 +1,9 @@
+{layout name="layout/index_layout" /}
+
+<main id="content">
+	<ul>
+		{volist name="result" id="vo"}
+		<li><a href="{:url('/ld', ['id'=>$vo['id']])}">{$vo['title']}</a></li>
+		{/volist}
+	</ul>
+</main>

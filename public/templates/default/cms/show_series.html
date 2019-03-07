@@ -1,12 +1,12 @@
 {layout name="layout/index_layout" /}
 
-<main id="content" class="container">
-	<section class="content-top"></section>
+<main id="content">
+	<!-- <section class="content-top"></section> -->
 	<section class="row">
 		<div class="col-sm-9">
-			<div style="background: #888; height:1000px;">
-				{$content|raw}
-				{$result['detail']->title}
+			<div>
+				<!-- <h1 class="detail-title">{$detail->title}</h1> -->
+				<div id="markdown"><textarea>{$content|raw}</textarea></div>
 			</div>
 		</div>
 		<!-- <div class="col-sm-3">

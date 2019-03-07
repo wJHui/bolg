@@ -15,3 +15,7 @@ foreach($category as $k=>$v){
 
 Route::rule('index','index/Index/index');
 Route::get('detail/id/:id$', 'index/index/detail');
+
+Route::get('ld/id/:id$', 'index/index/lists_detail');
+
+Route::get('list/id/:id$', 'index/index/list');
