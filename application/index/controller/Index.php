@@ -49,14 +49,11 @@ class Index extends Homebase
     /*
 	 * 新闻详情
     */
-    public function articleDetail (){
-
-       	if(!$this->request->has('id')){
-            return $this->fetch(Env::get('app_path') . 'index/view/404.html');
-        }
+    public function newsDetail(){
+    	
+      
 
         $id = $this->request->param('id/d');
-        
         $detail = Article::hasWhere('articleData')->get($id);
 		$category = Category::get($detail['catid'])->toArray();
 
@@ -93,13 +90,17 @@ class Index extends Homebase
 
     /* 系列列表页 */
     function seriesList(){
-        //$setting = unserialize($this->category['setting']);
+    	
+    	$category = Category::get(9);
+        $setting = unserialize($category['setting']);
+
         $id = $this->request->param('id');
         $tag = Tags::get($id);
         
         $result = Series::where('relation', $tag->title)->select()->toArray();
         
         $this->assign('result', $result);
+
         return $this->fetch($this->tpl.$setting['list_template']);
     }
 
