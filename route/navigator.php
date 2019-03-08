@@ -10,12 +10,10 @@ foreach($category as $k=>$v){
 	$controller = $v->model->tablename;
 
 	Route::get($catdir, 'index/index/'.$controller.'?cid='.$cid);
+	Route::get($catdir.'_detail/id/:id$', 'index/index/'.$catdir.'_detail');
+	Route::get($catdir.'_list/id/:id$', 'index/index/'.$catdir.'_list');
 }
 
 
 Route::rule('index','index/Index/index');
-Route::get('detail/id/:id$', 'index/index/detail');
 
-Route::get('ld/id/:id$', 'index/index/lists_detail');
-
-Route::get('list/id/:id$', 'index/index/list');
