@@ -8,6 +8,7 @@ use app\index\model\Tags;
 use app\index\model\Series;
 use app\index\model\Coder;
 use think\facade\Env;
+use think\db\Where;
 
 
 class Index extends Homebase
@@ -148,20 +149,19 @@ class Index extends Homebase
             return $this->fetch(Env::get('app_path') . 'index/view/404.html');
         }
 
-        $id = $this->request->param('id/d');
-        
-        $detail = Coder::hasWhere('coderData')->get($id);
-		$category = Category::get($detail['catid'])->toArray();
+        $id = $this->request->param('id');
+        $detail = Coder::with('coderData')->where('title', $id)->find();
+
+       $category = Category::get($detail->catid)->toArray();
 
         $setting = unserialize($category['setting']);
        
-        $preg = '/(<p[^>]*>\s*?<br\/>\s*?<\/p>\s?){3}/';
-        $content = preg_replace($preg, '<p><br/></p>', $detail->articleData->content);
+       
 
     
         $this->assign(array(
             'detail' => $detail,
-            'content' => $content,
+            'content' => $detail->coderData->markdown,
             'category' =>  $category
         ));
             

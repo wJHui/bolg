@@ -1,9 +1,10 @@
 {layout name="layout/index_layout" /}
 
 <main id="content">
-	<ul>
+	<section class="content-top"></section>
+	<ul class="sedries-list">
 		{volist name="result" id="vo"}
-		<li><a href="{:url('/series_detail/'.$vo['id'])}">{$vo['title']}</a></li>
+		<li class="sedries-item"><i class="iconfont icon-link"></i> <a href="{:url('/series_detail/'.$vo['id'])}">{$vo['title']}</a></li>
 		{/volist}
 	</ul>
 </main>

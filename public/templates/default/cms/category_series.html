@@ -5,7 +5,7 @@
 		{volist name="list" id="vo"}
 		<li class="col-xs-3" >
 			<a href="{:url('/series_list/'.$vo['id'])}">
-			<div class="series-item" style="background: {$vo['color']}">
+			<div class="series-item" style="background: {$vo['color']}; box-shadow: 0 26px 30px -24px {$vo['color']};">
 				{$vo['title']}
 			</div>
 			</a>

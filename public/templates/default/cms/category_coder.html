@@ -3,9 +3,9 @@
 <div class="code-wrap" id="content">
 	<div class="code-search">
 		<div id="search">
-			<input type="text" class="dropdown-selected" placeholder="请输入关键字">
+			<input type="text" name="id" id='work-input' class="dropdown-selected" placeholder="请输入关键字">
 		</div>
-		<div class="search-btn"><i class="iconfont icon-search"></i></div>
+		<div class="search-btn" onclick="submit()"><i class="iconfont icon-search"></i></div>
 	</div>
 
 	
@@ -35,3 +35,10 @@
 </div>
 
 <script type="text/javascript" src="__STATIC__/index/js/tags.js"></script>
+<script>
+	function submit(){
+		var input = $('#work-input').val();
+
+		location.href = '/coder_detail/' + input + '.html'
+	}
+</script>
