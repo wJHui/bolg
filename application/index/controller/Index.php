@@ -122,7 +122,7 @@ class Index extends Homebase
         $setting = unserialize($category['setting']);
        
         //$preg = '/(<p[^>]*>\s*?<br\/>\s*?<\/p>\s?){3}/';
-        $content = $detail->seriesData->markdown;
+        $content = $detail->seriesData->content;
 
     
         $this->assign(array(
@@ -164,7 +164,7 @@ class Index extends Homebase
     
         $this->assign(array(
             'detail' => $detail,
-            'content' => $detail->coderData->markdown,
+            'content' => $detail->coderData->content,
             'category' =>  $category
         ));
             
