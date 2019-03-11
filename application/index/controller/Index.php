@@ -108,9 +108,6 @@ class Index extends Homebase
     /* 代码详情页 */
     function seriesDetail(){
 
-        if(!$this->request->has('id')){
-            return $this->fetch(Env::get('app_path') . 'index/view/404.html');
-        }
 
         $id = $this->request->param('id/d');
         
@@ -145,12 +142,13 @@ class Index extends Homebase
 
     /* 编程详情页 */
     function coderDetail(){
-        if(!$this->request->has('id')){
-            return $this->fetch(Env::get('app_path') . 'index/view/404.html');
-        }
-
+        
         $id = $this->request->param('id');
         $detail = Coder::with('coderData')->where('title', $id)->find();
+
+        if(!$detail){
+            return $this->fetch(Env::get('app_path') . 'index/view/404.html');
+        }
 
        $category = Category::get($detail->catid)->toArray();
 
