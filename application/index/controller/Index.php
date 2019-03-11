@@ -24,7 +24,12 @@ class Index extends Homebase
 
 		// 公共模板路径
 		$this->tpl = ROOT_PATH.'public/templates/default/cms/';
-	}
+    }
+    
+    public function _empty()
+    {
+        return $this->fetch(Env::get('app_path') . 'index/view/404.html');
+    }
 
 	/*
 	 *	首页
