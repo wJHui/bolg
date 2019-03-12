@@ -173,11 +173,20 @@ class Category extends Adminbase
     public function edit()
     {
         if ($this->request->isPost()) {
+
             $id = $this->request->param('id/d', 0);
+            
+
             if (empty($id)) {
                 $this->error('请选择需要修改的栏目！');
             }
             $data = $this->request->post();
+
+            if(!$this->request->has('multiple')){
+                $data['multiple'] = 0;
+            }
+
+           
             switch ($data['type']) {
                 //单页
                 case 1:
